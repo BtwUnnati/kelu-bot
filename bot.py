@@ -5,8 +5,8 @@ from aiogram.enums import ParseMode
 from aiogram.filters import Command
 from aiogram.types import FSInputFile
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-OWNER_ID = int(os.getenv("OWNER_ID"))
+BOT_TOKEN = "8395895550:AAE8ucM2C_YZ76vAxcA7zInt1Nv41Fcm6NQ"
+OWNER_ID = 8294942940
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
