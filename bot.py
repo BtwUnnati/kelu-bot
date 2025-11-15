@@ -8,8 +8,8 @@ from pyrogram.enums import ParseMode
 # ---------------- CONFIG ----------------
 API_ID = 21705136
 API_HASH = "78730e89d196e160b0f1992018c6cb19"
-BOT_TOKEN = "8395895550:AAE8ucM2C_YZ76vAxcA7zInt1Nv41Fcm6NQ"
-OWNER_ID = 8294942940
+BOT_TOKEN = "8415943151:AAEYrt8lLh-qRZd22zy-qHGvRlihxGH7SvE"
+OWNER_ID = 8431372900
 TELEGRAPH_PHOTO_URL = "https://ar-hosting.pages.dev/1763193798506.jpg"
 # -----------------------------------------
 
