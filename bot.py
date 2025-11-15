@@ -1,8 +1,8 @@
 import json
 from pyrogram import Client, filters
 
-API_ID = 123456
-API_HASH = "your_api_hash"
+API_ID = 21705136
+API_HASH = "78730e89d196e160b0f1992018c6cb19"
 BOT_TOKEN = "8395895550:AAE8ucM2C_YZ76vAxcA7zInt1Nv41Fcm6NQ"
 
 # -------------------------
