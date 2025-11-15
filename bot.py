@@ -1,196 +1,143 @@
-import os
 import json
-from aiogram import Bot, Dispatcher, types
-from aiogram.enums import ParseMode
-from aiogram.filters import Command
-from aiogram.types import FSInputFile
+from pyrogram import Client, filters
 
+API_ID = 123456
+API_HASH = "your_api_hash"
 BOT_TOKEN = "8395895550:AAE8ucM2C_YZ76vAxcA7zInt1Nv41Fcm6NQ"
-OWNER_ID = 8395895550
 
-bot = Bot(token=BOT_TOKEN)
-dp = Dispatcher()
-
-DATA_FILE = "data.json"
-
-# JSON INIT
-if not os.path.exists(DATA_FILE):
-    with open(DATA_FILE, "w") as f:
-        json.dump({"media": [], "users": []}, f, indent=4)
-
-
+# -------------------------
+# Load Data
+# -------------------------
 def load_data():
-    with open(DATA_FILE, "r") as f:
+    with open("data.json") as f:
         return json.load(f)
 
-
 def save_data(data):
-    with open(DATA_FILE, "w") as f:
+    with open("data.json", "w") as f:
         json.dump(data, f, indent=4)
 
+data = load_data()
+OWNER = data["owner_id"]
 
-# ─────────────────────────────────────────────
-# START HANDLER — ONLY WELCOME PHOTOS + TEXT
-# ─────────────────────────────────────────────
-@dp.message(Command("start"))
-async def start(msg: types.Message):
+app = Client("bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
-    data = load_data()
+# -------------------------
+# START MESSAGE
+# -------------------------
+@app.on_message(filters.command("start"))
+async def start_handler(_, msg):
 
-    # SAVE USER
-    if msg.from_user.id not in data["users"]:
-        data["users"].append(msg.from_user.id)
+    uid = msg.from_user.id
+    if uid not in data["users"]:
+        data["users"].append(uid)
         save_data(data)
 
-    # MULTIPLE WELCOME PHOTOS FOLDER
-    folder = "ss"
+    # 1️⃣ Photo with clickable caption
+    await msg.reply_photo(
+        data["welcome_photo"],
+        caption=data["caption"],
+        parse_mode="html"
+    )
 
-    if os.path.exists(folder):
-        files = sorted(os.listdir(folder))
+    # 2️⃣ Text 1
+    await msg.reply_text(data["msg1"])
 
-        for index, file in enumerate(files):
-            path = f"{folder}/{file}"
-
-            if not file.lower().endswith(("jpg", "jpeg", "png")):
-                continue
-
-            if index == 0:
-                caption = (
-                    "▶️➡️ [𝘾𝙇𝙄𝘾𝙆 𝙃𝙀𝙍𝙀 𝙏𝙊 𝙒𝘼𝙏𝘾𝙃 𝘿𝙀𝙈𝙊 𝙋𝙍𝙊𝙊𝙁](https://t.me/Shelbypreviewbot?start=BQADAQADKw0AAkOGaESa3PDa4Iv_JRYE)\n\n"
-                    "😬 INTERESTED TO BUY VIDEOS ❓❓\n\n"
-                    "𝗔𝗻𝘆 𝗜𝘀𝘀𝘂𝗲? 𝗗𝗼𝘂𝗯𝘁? 𝗙𝗲𝗲𝗹 𝗙𝗿𝗲𝗲 𝗧𝗼 𝗔𝘀𝗸 😬\n"
-                    "𝗛𝘆 𝗯𝗿𝗼𝗼 𝗪𝗮𝗻𝗻𝗮 𝗕𝘂𝘆 𝗩𝗶𝗱𝗲𝗼𝘀 ???"
-                )
-
-                await msg.answer_photo(
-                    FSInputFile(path),
-                    caption=caption,
-                    parse_mode=ParseMode.MARKDOWN
-                )
-            else:
-                await msg.answer_photo(FSInputFile(path))
-
-    # DO NOT SEND ADDED MEDIA HERE
-    return
+    # 3️⃣ Text 2
+    await msg.reply_text(data["msg2"])
 
 
-# ─────────────────────────────────────────────
-# ADD (ADMIN ONLY)
-# ─────────────────────────────────────────────
-@dp.message(Command("add"))
-async def add_cmd(msg: types.Message):
-    if msg.from_user.id != OWNER_ID:
-        return await msg.reply("❌ Only Admin Allowed")
-
-    await msg.reply("📥 Send photo/video/text to ADD.")
-
-
-@dp.message()
-async def save_media(msg: types.Message):
-
-    if msg.from_user.id != OWNER_ID:
+# -------------------------
+# ADD MODE ON
+# -------------------------
+@app.on_message(filters.command("add"))
+async def add_cmd(_, msg):
+    if msg.from_user.id != OWNER:
         return
 
-    data = load_data()
+    data["add_mode"] = True
+    save_data(data)
+    await msg.reply("ADD MODE ON — अब जो भी photo/video/text भेजोगे वो demo में add होगा.")
 
-    # PHOTO
+
+# -------------------------
+# ADD MODE OFF
+# -------------------------
+@app.on_message(filters.command("addoff"))
+async def addoff_cmd(_, msg):
+    if msg.from_user.id != OWNER:
+        return
+
+    data["add_mode"] = False
+    save_data(data)
+    await msg.reply("ADD MODE OFF हो गया।")
+
+
+# -------------------------
+# CAPTURE MEDIA/TEXT IF ADD MODE IS ON
+# -------------------------
+@app.on_message(filters.all & filters.private)
+async def capture(_, msg):
+    if not data["add_mode"]:
+        return
+
+    content = None
+
     if msg.photo:
-        f = msg.photo[-1]
-        path = f"media/photo_{f.file_id}.jpg"
-        await bot.download(f, path)
+        content = {"type": "photo", "file_id": msg.photo.file_id, "caption": msg.caption or ""}
+    elif msg.video:
+        content = {"type": "video", "file_id": msg.video.file_id, "caption": msg.caption or ""}
+    elif msg.text:
+        content = {"type": "text", "text": msg.text}
 
-        caption = msg.caption if msg.caption else None
-
-        data["media"].append({
-            "type": "photo",
-            "file": path,
-            "caption": caption
-        })
+    if content:
+        data["demo"].append(content)
         save_data(data)
-        return await msg.reply("📸 Photo Added!")
-
-    # VIDEO
-    if msg.video:
-        f = msg.video
-        path = f"media/video_{f.file_id}.mp4"
-        await bot.download(f, path)
-
-        caption = msg.caption if msg.caption else None
-
-        data["media"].append({
-            "type": "video",
-            "file": path,
-            "caption": caption
-        })
-        save_data(data)
-        return await msg.reply("🎥 Video Added!")
-
-    # TEXT
-    if msg.text and not msg.text.startswith("/"):
-        data["media"].append({
-            "type": "text",
-            "text": msg.text
-        })
-        save_data(data)
-        return await msg.reply("📝 Text Added!")
+        await msg.reply("Added ✔")
 
 
-# ─────────────────────────────────────────────
-# DEMO — SEND ALL ADDED MEDIA
-# ─────────────────────────────────────────────
-@dp.message(Command("demo"))
-async def demo(msg: types.Message):
+# -------------------------
+# DEMO SEND (ALL USERS CAN USE)
+# -------------------------
+@app.on_message(filters.command("demo"))
+async def demo_handler(_, msg):
 
-    data = load_data()
+    if not data["demo"]:
+        return await msg.reply("Demo empty hai")
 
-    for m in data["media"]:
-
-        if m["type"] == "text":
-            await msg.answer(m["text"])
-
-        elif m["type"] == "photo":
-            await msg.answer_photo(
-                FSInputFile(m["file"]),
-                caption=m["caption"] if m["caption"] else None
-            )
-
-        elif m["type"] == "video":
-            await msg.answer_video(
-                FSInputFile(m["file"]),
-                caption=m["caption"] if m["caption"] else None
-            )
+    for d in data["demo"]:
+        if d["type"] == "photo":
+            await msg.reply_photo(d["file_id"], caption=d["caption"])
+        elif d["type"] == "video":
+            await msg.reply_video(d["file_id"], caption=d["caption"])
+        elif d["type"] == "text":
+            await msg.reply_text(d["text"])
 
 
-# ─────────────────────────────────────────────
-# BROADCAST — ADMIN
-# ─────────────────────────────────────────────
-@dp.message(Command("broadcast"))
-async def broadcast(msg: types.Message):
+# -------------------------
+# BROADCAST
+# -------------------------
+@app.on_message(filters.command("broadcast"))
+async def broadcast_cmd(_, msg):
+    if msg.from_user.id != OWNER:
+        return
 
-    if msg.from_user.id != OWNER_ID:
-        return await msg.reply("❌ Only Admin Allowed")
+    if len(msg.command) < 2:
+        return await msg.reply("Usage: /broadcast your message")
 
-    text = msg.text.replace("/broadcast", "").strip()
-    if not text:
-        return await msg.reply("Use: `/broadcast your msg`")
-
-    data = load_data()
-    users = data["users"]
+    text = msg.text.split(" ", 1)[1]
 
     sent = 0
-    for uid in users:
+    for uid in data["users"]:
         try:
-            await bot.send_message(uid, text)
+            await app.send_message(uid, text)
             sent += 1
         except:
             pass
 
-    await msg.reply(f"📢 Sent to {sent} users!")
+    await msg.reply(f"Broadcast sent to {sent} users")
 
 
-# ─────────────────────────────────────────────
-# RUN
-# ─────────────────────────────────────────────
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(dp.start_polling(bot))
+# -------------------------
+# RUN BOT
+# -------------------------
+app.run()
