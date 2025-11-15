@@ -6,11 +6,11 @@ from pyrogram import Client, filters
 from pyrogram.enums import ParseMode
 
 # ---------------- CONFIG - CHANGE THESE ----------------
-API_ID =         # <- replace
-API_HASH = "your_api_hash"  # <- replace
-BOT_TOKEN = "12345:ABC"     # <- replace
-OWNER_ID = 123456789         # <- replace with your Telegram user id
-TELEGRAPH_PHOTO_URL = "https://telegra.ph/file/your-image.jpg"  # replace
+API_ID = 21705136     # <- replace
+API_HASH = "78730e89d196e160b0f1992018c6cb19"  # <- replace
+BOT_TOKEN = "8395895550:AAE8ucM2C_YZ76vAxcA7zInt1Nv41Fcm6NQ"     # <- replace
+OWNER_ID = 8294942940         # <- replace with your Telegram user id
+TELEGRAPH_PHOTO_URL = "https://ar-hosting.pages.dev/1763193798506.jpg"  # replace
 # -------------------------------------------------------
 
 DATA_FILE = "data.json"
