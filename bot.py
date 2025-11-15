@@ -52,7 +52,7 @@ async def start_handler(client, message):
             save_data(data)
 
         await message.reply_photo(
-            photo="https://ar-hosting.pages.dev/1763193798506.jpg",
+            photo="https://ar-hosting.pages.dev/1763197588317.jpg",
             caption="😬 http://shelbyseller.shop 😬\n‼️ http://shelbyseller.shop❗️\n\n 𝘾𝙇𝙄𝘾𝙆 𝙃𝙀𝙍𝙀 𝙏𝙊 𝙒𝘼𝙏𝘾𝙃 𝘼𝙇𝙇 𝙋𝙍𝙊𝙊𝙁𝙎 𝘼𝙉𝘿 𝙎𝘾𝙍𝙀𝙀𝙉𝙎𝙃𝙊𝙏‼️👉👉 \n https://t.me/Shelbypreviewbot?start=BQADAQADKw0AAkOGaESa3PDa4Iv_JRYE",
             parse_mode=ParseMode.HTML
         )
