@@ -21,7 +21,7 @@ if not os.path.exists(DATA_FILE):
         "owner_id": OWNER_ID,
         "welcome_photo": TELEGRAPH_PHOTO_URL,
         "welcome_caption": "▶️➡️ <a href='https://t.me/Shelbypreviewbot?start=BQADAQADKw0AAkOGaESa3PDa4Iv_JRYE'>➡️ 👉 𝗖𝗟𝗜𝗖𝗞 𝗛𝗘𝗥𝗘 𝗧𝗢 𝗪𝗔𝗧𝗖𝗛 𝗗𝗘𝗠𝗢 𝗣𝗥𝗢𝗢𝗙 👈⬅️ \n\n ➡️ 👉 𝗖𝗟𝗜𝗖𝗞 𝗛𝗘𝗥𝗘 𝗧𝗢 𝗪𝗔𝗧𝗖𝗛 𝗗𝗘𝗠𝗢 𝗣𝗥𝗢𝗢𝗙 👈⬅️ \n\n ➡️ 👉 𝗖𝗟𝗜𝗖𝗞 𝗛𝗘𝗥𝗘 𝗧𝗢 𝗪𝗔𝗧𝗖𝗛 𝗗𝗘𝗠𝗢 𝗣𝗥𝗢𝗢𝗙 👈⬅️</a>",
-        "welcome_msg1": "😬 INTERESTED TO BUY VIDEOS 😀😀",
+        "welcome_msg1": "‼️ 𝗜𝗡𝗧𝗘𝗥𝗘𝗦𝗧𝗘𝗗 𝗧𝗢 𝗕𝗨𝗬 𝗩𝗜𝗗𝗘𝗢𝗦 ‼️ 𝗗𝗠 𝗧𝗢 𝗣𝗨𝗥𝗖𝗛𝗔𝗦𝗘 𝗩𝗜𝗗𝗢𝗘 @WHYQBACKUP7",
         "welcome_msg2": "𝗔𝗻𝘆 𝗜𝘀𝘀𝘂𝗲 𝗼𝗿 𝗗𝗼𝘂𝗯𝘁\n😬𝗛𝘆 𝗛𝘆𝗹𝗼 𝗯𝗿𝗼𝗼 Want To Buy Videos ???",
         "users": [],
         "add_mode": False,
@@ -53,7 +53,7 @@ async def start_handler(client, message):
 
         await message.reply_photo(
             photo="https://ar-hosting.pages.dev/1763197588317.jpg",
-            caption="😬 http://shelbyseller.shop 😬\n‼️ http://shelbyseller.shop❗️\n\n 𝘾𝙇𝙄𝘾𝙆 𝙃𝙀𝙍𝙀 𝙏𝙊 𝙒𝘼𝙏𝘾𝙃 𝘼𝙇𝙇 𝙋𝙍𝙊𝙊𝙁𝙎 𝘼𝙉𝘿 𝙎𝘾𝙍𝙀𝙀𝙉𝙎𝙃𝙊𝙏‼️👉👉 \n https://t.me/Shelbypreviewbot?start=BQADAQADKw0AAkOGaESa3PDa4Iv_JRYE",
+            caption="😬 http://shelbyseller.shop 😬\n\n ‼️ http://shelbyseller.shop❗️\n\n 𝘾𝙇𝙄𝘾𝙆 𝙃𝙀𝙍𝙀 𝙏𝙊 𝙒𝘼𝙏𝘾𝙃 𝘼𝙇𝙇 𝙋𝙍𝙊𝙊𝙁𝙎 𝘼𝙉𝘿 𝙎𝘾𝙍𝙀𝙀𝙉𝙎𝙃𝙊𝙏‼️👉👉 \n\n https://t.me/Shelbypreviewbot?start=BQADAQADKw0AAkOGaESa3PDa4Iv_JRYE",
             parse_mode=ParseMode.HTML
         )
         
