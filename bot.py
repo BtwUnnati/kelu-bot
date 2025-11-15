@@ -20,7 +20,7 @@ if not os.path.exists(DATA_FILE):
     initial = {
         "owner_id": OWNER_ID,
         "welcome_photo": TELEGRAPH_PHOTO_URL,
-        "welcome_caption": "▶️➡️ <a href='https://t.me/Shelbypreviewbot?start=BQADAQADKw0AAkOGaESa3PDa4Iv_JRYE'>CLICK HERE TO WATCH DEMO PROOF</a>",
+        "welcome_caption": "▶️➡️ <a href='https://t.me/Shelbypreviewbot?start=BQADAQADKw0AAkOGaESa3PDa4Iv_JRYE'>➡️ 👉 𝗖𝗟𝗜𝗖𝗞 𝗛𝗘𝗥𝗘 𝗧𝗢 𝗪𝗔𝗧𝗖𝗛 𝗗𝗘𝗠𝗢 𝗣𝗥𝗢𝗢𝗙 👈⬅️ \n\n ➡️ 👉 𝗖𝗟𝗜𝗖𝗞 𝗛𝗘𝗥𝗘 𝗧𝗢 𝗪𝗔𝗧𝗖𝗛 𝗗𝗘𝗠𝗢 𝗣𝗥𝗢𝗢𝗙 👈⬅️ \n\n ➡️ 👉 𝗖𝗟𝗜𝗖𝗞 𝗛𝗘𝗥𝗘 𝗧𝗢 𝗪𝗔𝗧𝗖𝗛 𝗗𝗘𝗠𝗢 𝗣𝗥𝗢𝗢𝗙 👈⬅️</a>",
         "welcome_msg1": "😬 INTERESTED TO BUY VIDEOS 😀😀",
         "welcome_msg2": "𝗔𝗻𝘆 𝗜𝘀𝘀𝘂𝗲 𝗼𝗿 𝗗𝗼𝘂𝗯𝘁\n😬𝗛𝘆 𝗛𝘆𝗹𝗼 𝗯𝗿𝗼𝗼 Want To Buy Videos ???",
         "users": [],
